@@ -25,6 +25,11 @@ public class Enimy2D : CharacterController2D, IHurt, IFSM, IAnimaEvent
         anim.runtimeAnimatorController = anims[UnityEngine.Random.Range(0, anims.Length - 1)];
     }
 
+    public void IniData(int enimyID, RoleData data)
+    {
+
+    }
+
     public void FsmIni()
     {
         Fsm = new FSMController(gameObject, transform);

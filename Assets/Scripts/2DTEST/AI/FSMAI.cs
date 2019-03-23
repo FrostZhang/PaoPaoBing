@@ -190,6 +190,10 @@ namespace FSM
 
         public override void Update()
         {
+            if ((temp-=Time.deltaTime)>0)
+            {
+                return;
+            }
             float dir = transform.position.x - target.position.x;
             if (Mathf.Abs(dir) > lostDis)
             {

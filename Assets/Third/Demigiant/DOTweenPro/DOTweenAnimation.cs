@@ -420,7 +420,7 @@ namespace DG.Tweening
         {
         	_playCount = -1;
             if (tween == null) {
-                if (Debugger.logPriority > 1) Debugger.LogNullTween(tween); return;
+                if (Core.Debugger.logPriority > 1) Core.Debugger.LogNullTween(tween); return;
             }
             if (fromHere && isRelative) ReEvaluateRelativeTween();
             DOTween.Restart(this.gameObject);

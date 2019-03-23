@@ -10,7 +10,7 @@ public class CharacterController2D : Role
     private RaycastHit raycastHit;
     public Transform tr { get; protected set; }
 
-    private void Awake()
+    protected virtual void Awake()
     {
         tr = transform;
         rb = tr.GetComponent<Rigidbody>();

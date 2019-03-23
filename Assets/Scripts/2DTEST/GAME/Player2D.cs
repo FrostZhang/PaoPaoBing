@@ -9,6 +9,11 @@ public class Player2D : CharacterController2D, IAnimaEvent, IHurt
     private Animator anim;
     protected bool canmove;
 
+    protected override void Awake()
+    {
+        base.Awake();
+    }
+
     protected override void Start()
     {
         base.Start();

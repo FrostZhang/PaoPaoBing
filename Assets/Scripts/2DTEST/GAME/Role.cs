@@ -10,7 +10,6 @@ public class Role : MonoBehaviour
     protected bool hasHpText;
     public Transform hptextPos;
     protected HpUI hpText;
-    //[Toggle("hasHpText")]
     public RoleData data;
 
     protected virtual void Start()

@@ -25,7 +25,36 @@ public class GameApp : Singleton<GameApp>
         player2D = FindObjectOfType<Player2D>();
         mapController = FindObjectOfType<GameMap>();
         DontDestroyOnLoad(this);
+        Application.lowMemory += Application_lowMemory;
+        Application.onBeforeRender += Application_onBeforeRender;
+        Application.wantsToQuit += Application_wantsToQuit;
+        Application.quitting += Application_quitting;
+        Application.runInBackground = true;
+        Application.targetFrameRate = 30;
+
+        Debugger.App.Log(123213);
     }
+
+    private void Application_quitting()
+    {
+        
+    }
+
+    private bool Application_wantsToQuit()
+    {
+        return true;
+    }
+
+    private void Application_onBeforeRender()
+    {
+        
+    }
+
+    private void Application_lowMemory()
+    {
+        
+    }
+
     float t = 3;
 
 	void Update () {
