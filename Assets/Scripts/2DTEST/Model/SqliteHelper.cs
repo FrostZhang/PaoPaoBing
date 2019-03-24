@@ -40,6 +40,7 @@ public class SqliteHelper : MonoBehaviour
     {
         this.connection = new SqliteConnection(sqlPath);
         this.connection.Open();
+        Debugger.App.Log("Sqlite" + sqlPath + "数据库打开");
     }
 
     public SqliteDataReader ExecueteSQLCommand(string com)
@@ -65,8 +66,12 @@ public class SqliteHelper : MonoBehaviour
         command = null;
         reader = null;
         connection = null;
-        Debug.Log("已经关闭数据库");
-        //Application.logMessageReceived
+        Debugger.App.Log("Sqlite 数据库关闭");
+    }
+
+    private void OnApplicationQuit()
+    {
+        CloseSQLConnection();
     }
 
 }
