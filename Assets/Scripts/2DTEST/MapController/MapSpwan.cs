@@ -8,7 +8,6 @@ public class MapSwpan
 
     public void Swpan(int id)
     {
-
+        Resources.Load<RuntimeAnimatorController>(string.Format("Animator/1 ({0})",id));
     }
-	
 }

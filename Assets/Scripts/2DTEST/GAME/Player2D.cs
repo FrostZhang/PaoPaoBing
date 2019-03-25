@@ -14,12 +14,12 @@ public class Player2D : CharacterController2D, IAnimaEvent, IHurt
         base.Awake();
     }
 
-    protected override void Start()
+    protected void Start()
     {
-        base.Start();
         body = tr.GetChild(0);
         anim = body.GetComponent<Animator>();
         canmove = true;
+        data = new RoleData() { hp = 100, atk = 2, def = 3, fightSpeed = 1 };
     }
 
     RaycastHit raycastHit;
@@ -60,7 +60,7 @@ public class Player2D : CharacterController2D, IAnimaEvent, IHurt
         switch (statename)
         {
             case Define.Anim.FIGHT:
-                var hits = Physics.SphereCastAll(transform.position, 1, body.rotation * Vector2.right, 0.5f);
+                var hits = Physics.SphereCastAll(transform.position, 1, body.rotation * Vector2.right, 0.5f, 1 << LayerMask.NameToLayer("Enimy"));
                 //Debug.Log(body.rotation * Vector2.right);
                 for (int i = 0; i < hits.Length; i++)
                 {
@@ -74,7 +74,7 @@ public class Player2D : CharacterController2D, IAnimaEvent, IHurt
                 }
                 break;
             case Define.Anim.CANMOVE:
-                canmove = state;    
+                canmove = state;
                 break;
         }
     }

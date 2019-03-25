@@ -17,7 +17,7 @@ public class GameApp : Singleton<GameApp>
     public Canvas hub;
     public Player2D player2D;
 
-    void Awake ()
+    void Awake()
     {
         pool = new GameObjectPool(prefab);
         cameraCt = FindObjectOfType<CamaraFollow>();
@@ -27,8 +27,10 @@ public class GameApp : Singleton<GameApp>
         DontDestroyOnLoad(this);
         Application.lowMemory += Application_lowMemory;
         Application.onBeforeRender += Application_onBeforeRender;
+#if UNITY_2018_1
         Application.wantsToQuit += Application_wantsToQuit;
         Application.quitting += Application_quitting;
+#endif
         Application.runInBackground = true;
         Application.targetFrameRate = 30;
 
@@ -37,7 +39,7 @@ public class GameApp : Singleton<GameApp>
 
     private void Application_quitting()
     {
-        
+
     }
 
     private bool Application_wantsToQuit()
@@ -47,17 +49,18 @@ public class GameApp : Singleton<GameApp>
 
     private void Application_onBeforeRender()
     {
-        
+
     }
 
     private void Application_lowMemory()
     {
-        
+
     }
 
     float t = 3;
 
-	void Update () {
+    void Update()
+    {
         gameTimer.Update();
     }
 }

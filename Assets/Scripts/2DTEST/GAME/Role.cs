@@ -1,5 +1,4 @@
-﻿using Sirenix.OdinInspector;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,7 +11,7 @@ public class Role : MonoBehaviour
     protected HpUI hpText;
     public RoleData data;
 
-    protected virtual void Start()
+    protected void BuildHub()
     {
         if (hasHpText)
         {

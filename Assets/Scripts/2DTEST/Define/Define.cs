@@ -33,5 +33,6 @@ public class Define
         public const string CAMERA = "camera";
         public const string MAP = "MAP";
         public const string MAPITEMPA = "MapItems";
+        public const string MAPITEM = "MapItem";
     }
 }

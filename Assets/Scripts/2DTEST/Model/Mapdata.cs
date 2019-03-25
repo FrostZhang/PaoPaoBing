@@ -77,6 +77,7 @@ namespace Map
     {
         public int mapObjid;            //物体id
         public Vector3 spwanpos;        //出生地
+        public Quaternion spwanRo;        //朝向
         public bool mustBeDestroyed;    //标志物体必须被摧毁，否则无法达到下一关
     }
 

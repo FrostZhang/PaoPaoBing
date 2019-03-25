@@ -15,19 +15,28 @@ public class Enimy2D : CharacterController2D, IHurt, IFSM, IAnimaEvent
 
     public bool Canmove { get; protected set; }
 
-    protected override void Start()
+    public Map.PlaceData placeData;
+
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
         body = tr.GetChild(0);
         anim = body.GetComponent<Animator>();
-        Canmove = true;
-        FsmIni();
-        anim.runtimeAnimatorController = anims[UnityEngine.Random.Range(0, anims.Length - 1)];
     }
 
-    public void IniData(int enimyID, RoleData data)
+    protected void Start()
     {
 
+    }
+
+    public void IniData(RoleData data, RuntimeAnimatorController rac)
+    {
+        this.data = data;
+        anim.runtimeAnimatorController = rac;
+
+        FsmIni();
+        GameApp.gameTimer.Delay(() => { BuildHub(); }, 0.5f);
+        Canmove = true;
     }
 
     public void FsmIni()
@@ -85,7 +94,7 @@ public class Enimy2D : CharacterController2D, IHurt, IFSM, IAnimaEvent
         switch (statename)
         {
             case Define.Anim.FIGHT:
-                var hits = Physics.SphereCastAll(transform.position, 1, body.rotation * Vector2.right, 0.5f);
+                var hits = Physics.SphereCastAll(transform.position, 1, body.rotation * Vector2.right, 0.5f, 1 << LayerMask.NameToLayer("Player"));
                 //Debug.Log(body.rotation * Vector2.right);
                 for (int i = 0; i < hits.Length; i++)
                 {

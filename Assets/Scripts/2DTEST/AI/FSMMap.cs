@@ -16,11 +16,13 @@ namespace FSM
         Transform player;
         GameMap map;
         CamaraFollow cf;
+        Transform mapPa;
         public override void Initialization()
         {
             map = fSMController.variable[Define.FSMAI.MAP] as GameMap;
             cf = fSMController.variable[Define.FSMAI.CAMERA] as CamaraFollow;
             player = fSMController.variable[Define.FSMAI.TARGET] as Transform;
+            mapPa = fSMController.variable[Define.FSMAI.MAPITEMPA] as Transform;
             StateName = Define.FSMAI.DESIGNMAP;
         }
 
@@ -31,18 +33,34 @@ namespace FSM
 
         public override void Start()
         {
-
-        }
-
-        public override void Update()
-        {
             Vector2 v = map.CurrentSegment.wall;
             map.walls[0].SetPositonX(v.x);        //墙
             map.walls[1].SetPositonX(v.y);
             player.position = map.CurrentSegment.swpanPos;              //玩家
             cf.transform.SetPositonX(map.CurrentSegment.swpanPos.x);    //相机
             cf.LimitCaView(v);
+        }
+
+        public override void Update()
+        {
+            var a = map.CurrentSegment.placeData;
+            for (int i = 0; i < a.Count; i++)
+            {
+                Swpan(a[i]);
+            }
             fSMController.RunState(Define.FSMAI.MONITORMAP);
+        }
+
+        public void Swpan(PlaceData data)
+        {
+            var g = GameApp.pool.GetProp(Define.FSMAI.MAPITEM, data.spwanpos, data.spwanRo, mapPa);
+            g.SetActive(true);
+            Enimy2D a = g.GetComponent<Enimy2D>();
+            a.placeData = data;
+            var b = new RoleData();
+            b.hp = 100;
+            b.moveSpeed = 1.5f;
+            a.IniData(b, Resources.Load<RuntimeAnimatorController>(string.Format("Animator/{0}", data.mapObjid)));
         }
     }
 
@@ -52,9 +70,11 @@ namespace FSM
         MapSegment map;
         MapDoor[] doors;
         GameMap a;
+        Transform mapPa;
         public override void Initialization()
         {
             a = fSMController.variable[Define.FSMAI.MAP] as GameMap;
+            mapPa = fSMController.variable[Define.FSMAI.MAPITEMPA] as Transform;
             StateName = Define.FSMAI.MONITORMAP;
         }
 
@@ -62,12 +82,17 @@ namespace FSM
         {
             foreach (var item in doors)
             {
-                if (item==null)
+                if (item == null)
                 {
                     break;
                 }
                 item.CloseDoor();
-                GameApp.pool.Recycle(item.gameObject,Define.FSMAI.MAP);
+                GameApp.pool.Recycle(item.gameObject, Define.FSMAI.MAP);
+            }
+            for (int i = 0; i < mapPa.childCount; i++)
+            {
+                GameApp.pool.Recycle(mapPa.GetChild(i).gameObject, Define.FSMAI.MAPITEM);
+                mapPa.GetChild(i).gameObject.SetActive(false);
             }
             doors = null;
         }
@@ -78,7 +103,7 @@ namespace FSM
             doors = new MapDoor[map.childs.Length];
             for (int i = 0; i < map.childs.Length; i++)
             {
-                if (map.childs[i]==null)
+                if (map.childs[i] == null)
                 {
                     break;
                 }

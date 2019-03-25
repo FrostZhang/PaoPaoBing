@@ -21,7 +21,7 @@ public class HPTextController : Singleton<HPTextController>
     {
         GameObject ob = GameApp.pool.GetProp(HPText, pos.position, Quaternion.identity, tr);
         var hpui = ob.GetComponent<HpUI>();
-        hpui.nametext.text = name;
+        hpui.nametext.text = name == null ? string.Empty : name;
         hpui.IsShow = show;
         hpui.target = pos;
         hpUIs.Add(hpui);
@@ -35,7 +35,7 @@ public class HPTextController : Singleton<HPTextController>
         st.text = text;
         st.color = Color.red;
         dy.transform.DOMoveY(2, 1f).SetRelative();
-        DOTween.ToAlpha(() => st.color, (_) => { st.color = _;st.Rebuild(); }, 0, 1)
+        DOTween.ToAlpha(() => st.color, (_) => { st.color = _; st.Rebuild(); }, 0, 1)
             .SetEase(Ease.InOutFlash)
             .OnComplete(() =>
         {
