@@ -56,11 +56,21 @@ namespace FSM
             var g = GameApp.pool.GetProp(Define.FSMAI.MAPITEM, data.spwanpos, data.spwanRo, mapPa);
             g.SetActive(true);
             Enimy2D a = g.GetComponent<Enimy2D>();
-            a.placeData = data;
+            a.mapdata = data;
+            a.OnEnimyChange += A_OnEnimyChange;
             var b = new RoleData();
             b.hp = 100;
             b.moveSpeed = 1.5f;
             a.IniData(b, Resources.Load<RuntimeAnimatorController>(string.Format("Animator/{0}", data.mapObjid)));
+        }
+
+        private void A_OnEnimyChange(Enimy2D sender, Enimy2D.EnimyArg e)
+        {
+            if (e.isdie)
+            {
+                map.CurrentSegment.placeData.Remove(sender.mapdata);
+                sender.OnEnimyChange -= A_OnEnimyChange;
+            }
         }
     }
 
@@ -91,8 +101,12 @@ namespace FSM
             }
             for (int i = 0; i < mapPa.childCount; i++)
             {
-                GameApp.pool.Recycle(mapPa.GetChild(i).gameObject, Define.FSMAI.MAPITEM);
-                mapPa.GetChild(i).gameObject.SetActive(false);
+                var g = mapPa.GetChild(i).gameObject;
+                var item= g.GetComponent<IMapitem>();
+                item.mapdata.spwanpos = mapPa.GetChild(i).position;
+                item.mapdata.spwanRo = mapPa.GetChild(i).rotation;
+                GameApp.pool.Recycle(g, Define.FSMAI.MAPITEM);
+                g.SetActive(false);
             }
             doors = null;
         }

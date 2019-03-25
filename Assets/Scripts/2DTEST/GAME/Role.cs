@@ -13,7 +13,7 @@ public class Role : MonoBehaviour
 
     protected void BuildHub()
     {
-        if (hasHpText)
+        if (hasHpText && !hpText)
         {
             if (!hptextPos)
             {
@@ -24,9 +24,10 @@ public class Role : MonoBehaviour
         }
     }
 
-    private void ShowHP()
+    protected void ShowHP(bool isshow)
     {
-        hpText.IsShow = true;
+        hpText.IsShow = isshow;
+        hpText.isoutcamera = isshow;
     }
 
     protected void ShowHpChange(int hurt, bool isminus = true)
@@ -42,7 +43,7 @@ public class Role : MonoBehaviour
         if (hpText)
         {
             hpText.UpHp(data.hp);
-            ShowHP();
+            ShowHP(true);
         }
     }
 

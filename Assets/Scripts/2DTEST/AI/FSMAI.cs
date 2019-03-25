@@ -106,16 +106,14 @@ namespace FSM
 
     public class FindTarget : FSM_State
     {
-        float min;
+        float timeInterval;
         float max;
 
         float temp;
         float radii;
         Component target;
-        public FindTarget(float max, float min, float radii)
+        public FindTarget(float timeInterval, float radii)
         {
-            this.max = Mathf.Max(max, min);
-            this.min = Mathf.Min(max, min);
             this.radii = radii;
 
             StateName = Define.FSMAI.FINDTARGET;
@@ -128,7 +126,7 @@ namespace FSM
 
         public override void Start()
         {
-            temp = Random.Range(min, max);
+            temp = timeInterval;
         }
 
         public override void Update()

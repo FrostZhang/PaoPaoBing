@@ -4,24 +4,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using FSM;
 
-public class Enimy2D : CharacterController2D, IHurt, IFSM, IAnimaEvent
+public class Enimy2D : CharacterController2D, IHurt, IMapitem, IAnimaEvent
 {
+    public RuntimeAnimatorController runanim;
+    public bool Canmove { get; protected set; }
+    public Map.PlaceData mapdata { get; set; }
+
+    public float freemoveDis=3;
+    public float freemovemaxtTime=3;
+    public float findInterval=0.5f;
+    public float finsSqr = 2.5f;
+    public float lostMinT = 1.5f;
+    public float lostMaxT = 2;
+    public float lostDis = 4;
+    public float idemin = 1;
+    public float idemax = 3;
+    public Vector2 atcRange= new Vector2(1.5f, 0.25f);
+    public float moveTotargetMacTime = 3f;
+
+    protected FSMController Fsm { get; set; }
     private Animator anim;
     private Transform body;
-
-    public FSMController Fsm { get; set; }
-
-    public RuntimeAnimatorController[] anims;
-
-    public bool Canmove { get; protected set; }
-
-    public Map.PlaceData placeData;
 
     protected override void Awake()
     {
         base.Awake();
         body = tr.GetChild(0);
         anim = body.GetComponent<Animator>();
+        anim.runtimeAnimatorController = runanim;
     }
 
     protected void Start()
@@ -34,34 +44,41 @@ public class Enimy2D : CharacterController2D, IHurt, IFSM, IAnimaEvent
         this.data = data;
         anim.runtimeAnimatorController = rac;
 
+        GameApp.gameTimer.Delay(() => { BuildHub(); ShowHP(false); }, 0.5f);
         FsmIni();
-        GameApp.gameTimer.Delay(() => { BuildHub(); }, 0.5f);
         Canmove = true;
     }
 
     public void FsmIni()
     {
-        Fsm = new FSMController(gameObject, transform);
-        Fsm.onFsmEvent += OnFSMEvent;
-        FreeMove freemove = new FreeMove(new Vector3(1, 0, 0.5f), 3f, 3f);
-        FindTarget findTarget = new FindTarget(0.5f, 1.5f, 2.5f);
-        LostTarget lost = new LostTarget(1.5f, 2, 4f);
-        Idel idel = new Idel(1f, 3f);
-        Vector2 v2 = new Vector2(1.5f, 0.25f);
-        ShortRangeAttack att = new ShortRangeAttack(v2);
-        MoveToTarget moveTo = new MoveToTarget(3f, v2);
-        Fsm.AddState(idel);
-        Fsm.AddState(freemove);
-        Fsm.AddState(findTarget);
-        Fsm.AddState(lost);
-        Fsm.AddState(att);
-        Fsm.AddState(moveTo);
-        Fsm.Monitor(findTarget);
-        Fsm.variable.Add(Define.FSMAI.TARGET, null);
-        Fsm.variable.Add(Define.FSMAI.BODY, body);
-        Fsm.variable.Add(Define.FSMAI.ANIMATOR, anim);
-        Fsm.variable.Add(Define.FSMAI.SELF, this);
-        Fsm.Initialization();
+        if (Fsm == null)
+        {
+            Fsm = new FSMController(gameObject, transform);
+            Fsm.onFsmEvent += OnFSMEvent;
+            FreeMove freemove = new FreeMove(new Vector3(1, 0, 0.5f), freemoveDis, freemovemaxtTime);
+            FindTarget findTarget = new FindTarget(findInterval, finsSqr);
+            LostTarget lost = new LostTarget(lostMinT, lostMaxT, lostDis);
+            Idel idel = new Idel(idemin, idemax);
+            ShortRangeAttack att = new ShortRangeAttack(atcRange);
+            MoveToTarget moveTo = new MoveToTarget(moveTotargetMacTime, atcRange);
+            Fsm.AddState(idel);
+            Fsm.AddState(freemove);
+            Fsm.AddState(findTarget);
+            Fsm.AddState(lost);
+            Fsm.AddState(att);
+            Fsm.AddState(moveTo);
+            Fsm.Monitor(findTarget);
+            Fsm.variable.Add(Define.FSMAI.TARGET, null);
+            Fsm.variable.Add(Define.FSMAI.BODY, body);
+            Fsm.variable.Add(Define.FSMAI.ANIMATOR, anim);
+            Fsm.variable.Add(Define.FSMAI.SELF, this);
+            Fsm.Initialization();
+        }
+        else
+        {
+            Fsm.variable[Define.FSMAI.TARGET] = null;
+            Fsm.RunState(Define.FSMAI.IDLE);
+        }
     }
 
     private void OnFSMEvent(FSM_State state, Component value)
@@ -119,10 +136,23 @@ public class Enimy2D : CharacterController2D, IHurt, IFSM, IAnimaEvent
         {
             anim.SetTrigger("hit");
             ShowHpChange(targetdata.atk);
+            if (!Fsm.variable[Define.FSMAI.TARGET])
+            {
+                Fsm.variable[Define.FSMAI.TARGET] = att;
+                OnEnimyChange?.Invoke(this, new EnimyArg() { isdie = true });
+            }
         }
-        if (!Fsm.variable[Define.FSMAI.TARGET])
+        else
         {
-            Fsm.variable[Define.FSMAI.TARGET] = att;
+            Canmove = false;
         }
+    }
+
+    public delegate void Enimy2DHandel(Enimy2D sender, EnimyArg e);
+    public event Enimy2DHandel OnEnimyChange;
+
+    public class EnimyArg : EventArgs
+    {
+        public bool isdie;
     }
 }

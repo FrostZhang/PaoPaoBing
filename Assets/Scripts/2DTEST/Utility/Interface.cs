@@ -11,8 +11,7 @@ public interface IAnimaEvent
     void StateEvent(string statename, bool state);
 }
 
-public interface IFSM
+public interface IMapitem
 {
-    FSMController Fsm { get; set; }
-    void FsmIni();
+    Map.PlaceData mapdata { get; set; }
 }

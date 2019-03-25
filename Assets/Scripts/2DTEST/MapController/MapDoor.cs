@@ -61,8 +61,11 @@ public class MapDoor : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        GameApp.Instance.mapController.SkipMap(data.mapid);
-        OnPlayerPass?.Invoke(true);
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            GameApp.Instance.mapController.SkipMap(data.mapid);
+            OnPlayerPass?.Invoke(true);
+        }
     }
 
     private void OnTriggerExit(Collider other)
