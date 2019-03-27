@@ -34,7 +34,11 @@ public class GameApp : Singleton<GameApp>
         Application.runInBackground = true;
         Application.targetFrameRate = 30;
 
-        Debugger.App.Log(123213);
+        Debugger.App.Log("GameApp 初始化完成");
+        //Debugger.Game.Log("GameApp 初始化完成");
+        //Debugger.Network.Log("GameApp 初始化完成");
+        //Debugger.Resource.Log("GameApp 初始化完成");
+        //Debugger.UI.Log("GameApp 初始化完成");
     }
 
     private void Application_quitting()
@@ -54,7 +58,7 @@ public class GameApp : Singleton<GameApp>
 
     private void Application_lowMemory()
     {
-
+        Debugger.App.LogWarning("GameApp 系统运行内存过低!");
     }
 
     float t = 3;

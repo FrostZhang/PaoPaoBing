@@ -65,33 +65,13 @@ public class DataService  {
 	}
 
 	public void CreateDB(){
-		_connection.DropTable<Person> ();
-		_connection.CreateTable<Person> ();
+		_connection.DropTable<EnimyData> ();
+		_connection.CreateTable<EnimyData> ();
 
         _connection.InsertAll(new[]{
-            new Person{
-                Id = 1,
-                Name = "Tom",
-                Surname = "Perez",
-                Age = 56
-			},
-			new Person{
-				Id = 2,
-				Name = "Fred",
-				Surname = "Arthurson",
-				Age = 16
-            },
-			new Person{
-				Id = 3,
-				Name = "John",
-				Surname = "Doe",
-				Age = 25
-            },
-			new Person{
-				Id = 4,
-				Name = "Roberto",
-				Surname = "Huertas",
-				Age = 37
+            new EnimyData(){
+                //gameid=1,animatorID=1,hp=100
+                animatorID=001
             }
 		});
 	}

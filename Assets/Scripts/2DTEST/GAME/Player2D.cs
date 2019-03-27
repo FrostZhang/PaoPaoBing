@@ -9,11 +9,6 @@ public class Player2D : CharacterController2D, IAnimaEvent, IHurt
     private Animator anim;
     protected bool canmove;
 
-    protected override void Awake()
-    {
-        base.Awake();
-    }
-
     protected void Start()
     {
         body = tr.GetChild(0);
@@ -69,7 +64,7 @@ public class Player2D : CharacterController2D, IAnimaEvent, IHurt
                         IHurt ih = hits[i].transform.GetComponent<IHurt>();
                         if (ih != null)
                             ih.Hurt(tr, data);
-                        Debug.Log(hits[i].transform.name);
+                        Debugger.Game.Log("Palyer 攻击" + hits[i].transform.name);
                     }
                 }
                 break;

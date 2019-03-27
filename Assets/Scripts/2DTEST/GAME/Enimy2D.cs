@@ -44,7 +44,7 @@ public class Enimy2D : CharacterController2D, IHurt, IMapitem, IAnimaEvent
         this.data = data;
         anim.runtimeAnimatorController = rac;
 
-        GameApp.gameTimer.Delay(() => { BuildHub(); ShowHP(false); }, 0.5f);
+         BuildHub(); ShowHP(false); 
         FsmIni();
         Canmove = true;
     }
@@ -120,7 +120,7 @@ public class Enimy2D : CharacterController2D, IHurt, IMapitem, IAnimaEvent
                         IHurt ih = hits[i].transform.GetComponent<IHurt>();
                         if (ih != null)
                             ih.Hurt(tr, data);
-                        Debug.Log(hits[i].transform.name);
+                        Debugger.Game.Log(hits[i].transform.name);
                     }
                 }
                 break;

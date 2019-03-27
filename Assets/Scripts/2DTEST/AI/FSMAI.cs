@@ -192,6 +192,12 @@ namespace FSM
             {
                 return;
             }
+            if (!target)
+            {
+                fSMController.Monitor(Define.FSMAI.FINDTARGET);
+                fSMController.RunState(Define.FSMAI.IDLE);
+                return;
+            }
             float dir = transform.position.x - target.position.x;
             if (Mathf.Abs(dir) > lostDis)
             {

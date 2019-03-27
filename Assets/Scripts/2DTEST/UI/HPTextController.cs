@@ -22,8 +22,9 @@ public class HPTextController : Singleton<HPTextController>
         GameObject ob = GameApp.pool.GetProp(HPText, pos.position, Quaternion.identity, tr);
         var hpui = ob.GetComponent<HpUI>();
         hpui.nametext.text = name == null ? string.Empty : name;
-        hpui.IsShow = show;
         hpui.target = pos;
+        hpui.Uppos();
+        hpui.IsShow = show;
         hpUIs.Add(hpui);
         return hpui;
     }

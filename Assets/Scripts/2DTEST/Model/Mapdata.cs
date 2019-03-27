@@ -7,7 +7,7 @@ namespace Map
     public class MapData
     {
         public int mapid;  //世界地图块id
-        List<MapSegment> segments;
+        public List<MapSegment> segments;
 
         public MapData()
         {
@@ -38,9 +38,10 @@ namespace Map
         }
     }
 
+    [System.Serializable]
     public class MapSegment
     {
-        public int mapid { get; private set; }   //地图块id
+        public int mapid { get; set; }   //地图块id
         public MapChild[] childs;    //可通往
         public Vector2 wall;  //左右墙限制
 

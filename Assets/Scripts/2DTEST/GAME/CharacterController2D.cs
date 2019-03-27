@@ -25,7 +25,7 @@ public class CharacterController2D : Role
         }
         else
         {
-            Debug.Log(raycastHit.transform.name);
+            Debugger.Game.Log(this.ToString() + raycastHit.transform.name);
         }
     }
 
