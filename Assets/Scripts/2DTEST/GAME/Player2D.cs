@@ -81,5 +81,7 @@ public class Player2D : CharacterController2D, IAnimaEvent, IHurt
             anim.SetTrigger(Define.Anim.HIT);
             ShowHpChange(targetdata.atk);
         }
+        GameEvent.PlayerData.OnChange_HP?.Invoke(data.hp);
     }
+
 }

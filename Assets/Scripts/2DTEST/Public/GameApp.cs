@@ -9,6 +9,7 @@ public class GameApp : Singleton<GameApp>
     public static GameObjectPool pool;
     public static CamaraFollow cameraCt;
     public static GameTimer gameTimer;
+    public static GameEvent gameEvent;
 
     public GameMap mapController;
 

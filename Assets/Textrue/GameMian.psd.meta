@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 82d8f65188b42a5469590353d5faf05b
-timeCreated: 1553685610
+timeCreated: 1553760355
 licenseType: Pro
 TextureImporter:
   fileIDToRecycleName:
@@ -382,6 +382,7 @@ TextureImporter:
     21300750: GameMian_375
     21300752: GameMian_376
     21300754: GameMian_377
+    21300756: GameMian_378
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -479,7 +480,7 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 992
-        width: 47
+        width: 40
         height: 31
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -665,7 +666,7 @@ TextureImporter:
         height: 19
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 1, y: 1, z: 1, w: 1}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -707,7 +708,7 @@ TextureImporter:
         height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 1, y: 0, z: 1, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -721,7 +722,7 @@ TextureImporter:
         height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 1, y: 2, z: 1, w: 2}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -1137,8 +1138,8 @@ TextureImporter:
         serializedVersion: 2
         x: 200
         y: 903
-        width: 12
-        height: 16
+        width: 4
+        height: 4
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2104,7 +2105,7 @@ TextureImporter:
         x: 3
         y: 615
         width: 390
-        height: 95
+        height: 81
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2891,7 +2892,7 @@ TextureImporter:
         height: 76
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 10, y: 10, z: 10, w: 10}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -4790,9 +4791,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 232
-        y: 245
+        y: 235
         width: 52
-        height: 39
+        height: 58
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -5714,12 +5715,12 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 227
-        y: 250
+        y: 235
         width: 3
-        height: 31
+        height: 58
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 1, y: 7, z: 1, w: 6}
+      border: {x: 1, y: 0, z: 1, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -5727,13 +5728,13 @@ TextureImporter:
       name: GameMian_375
       rect:
         serializedVersion: 2
-        x: 121
-        y: 946
-        width: 134
-        height: 12
+        x: 123
+        y: 948
+        width: 130
+        height: 8
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 8, y: 4, z: 8, w: 4}
+      border: {x: 8, y: 2, z: 8, w: 2}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -5760,8 +5761,22 @@ TextureImporter:
         width: 4
         height: 42
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 1, y: 13, z: 1, w: 13}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 1, y: 0, z: 1, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: GameMian_378
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 845
+        width: 199
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
