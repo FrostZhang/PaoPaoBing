@@ -12,7 +12,6 @@ public class GameApp : Singleton<GameApp>
     public static GameEvent gameEvent;
 
     public GameMap mapController;
-
     public GameObject[] prefab;
     public Canvas canvas;
     public Canvas hub;

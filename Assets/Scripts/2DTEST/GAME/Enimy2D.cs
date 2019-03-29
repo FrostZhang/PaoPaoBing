@@ -10,16 +10,16 @@ public class Enimy2D : CharacterController2D, IHurt, IMapitem, IAnimaEvent
     public bool Canmove { get; protected set; }
     public Map.PlaceData mapdata { get; set; }
 
-    public float freemoveDis=3;
-    public float freemovemaxtTime=3;
-    public float findInterval=0.5f;
+    public float freemoveDis = 3;
+    public float freemovemaxtTime = 3;
+    public float findInterval = 0.5f;
     public float finsSqr = 2.5f;
     public float lostMinT = 1.5f;
     public float lostMaxT = 2;
     public float lostDis = 4;
     public float idemin = 1;
     public float idemax = 3;
-    public Vector2 atcRange= new Vector2(1.5f, 0.25f);
+    public Vector2 atcRange = new Vector2(1.5f, 0.25f);
     public float moveTotargetMacTime = 3f;
 
     protected FSMController Fsm { get; set; }
@@ -44,7 +44,7 @@ public class Enimy2D : CharacterController2D, IHurt, IMapitem, IAnimaEvent
         this.data = data;
         anim.runtimeAnimatorController = rac;
 
-         BuildHub(); ShowHP(false); 
+        BuildHub(); ShowHP(false);
         FsmIni();
         Canmove = true;
     }
@@ -144,6 +144,7 @@ public class Enimy2D : CharacterController2D, IHurt, IMapitem, IAnimaEvent
         }
         else
         {
+            anim.StopPlayback();
             Canmove = false;
         }
     }

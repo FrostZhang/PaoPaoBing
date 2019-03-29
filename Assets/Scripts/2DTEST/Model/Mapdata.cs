@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Map
 {
+    [System.Serializable]
     public class MapData
     {
         public int mapid;  //世界地图块id
@@ -44,8 +45,7 @@ namespace Map
         public int mapid { get; set; }   //地图块id
         public MapChild[] childs;    //可通往
         public Vector2 wall;  //左右墙限制
-
-        public Vector3 swpanPos { get; set; }   //出生点
+        public Vector3 swpanPos; //出生点
 
         public MapSegment(int mapid)
         {
@@ -73,7 +73,7 @@ namespace Map
             return null;
         }
     }
-
+    [System.Serializable]
     public class PlaceData
     {
         public int mapObjid;            //物体id
@@ -81,7 +81,7 @@ namespace Map
         public Quaternion spwanRo;        //朝向
         public bool mustBeDestroyed;    //标志物体必须被摧毁，否则无法达到下一关
     }
-
+    [System.Serializable]
     public class MapChild
     {
         public int mapid = -1;  //下张地图块的id

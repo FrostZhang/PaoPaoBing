@@ -17,3 +17,10 @@ public class EnimyData : RoleData
 {
     public int animatorID;          //动画数据索引
 }
+
+public class CustomData
+{
+    public string account;  //账号
+    public string passworld;  //密码
+    public RoleData basedata;
+}

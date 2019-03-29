@@ -28,6 +28,10 @@ public class Role : MonoBehaviour
     {
         hpText.IsShow = isshow;
         hpText.isoutcamera = isshow;
+        if (isshow)
+        {
+            hpText.Uppos();
+        }
     }
 
     protected void ShowHpChange(int hurt, bool isminus = true)

@@ -15,3 +15,8 @@ public interface IMapitem
 {
     Map.PlaceData mapdata { get; set; }
 }
+
+public interface ISueface
+{
+
+}

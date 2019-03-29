@@ -9,12 +9,18 @@ public class Player2D : CharacterController2D, IAnimaEvent, IHurt
     private Animator anim;
     protected bool canmove;
 
+    public int hpdynamic;
+    public int mpdynamic;
+
     protected void Start()
     {
         body = tr.GetChild(0);
         anim = body.GetComponent<Animator>();
         canmove = true;
         data = new RoleData() { hp = 100, atk = 2, def = 3, fightSpeed = 1 };
+
+        //test
+        hpdynamic = data.hp;
     }
 
     RaycastHit raycastHit;
@@ -81,7 +87,7 @@ public class Player2D : CharacterController2D, IAnimaEvent, IHurt
             anim.SetTrigger(Define.Anim.HIT);
             ShowHpChange(targetdata.atk);
         }
-        GameEvent.PlayerData.OnChange_HP?.Invoke(data.hp);
+        GameEvent.PlayerData.OnChange_HP?.Invoke(hpdynamic,data.hp);
     }
 
 }

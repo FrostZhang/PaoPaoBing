@@ -14,7 +14,7 @@ public class GameMap : MonoBehaviour
     private Transform tr;
     MapData mapData;
 
-    public MapSegment CurrentSegment;
+    public MapSegment CurrentSegment { get; protected set; }
     FSMController fsm;
 
     private Transform mapItemPa;
@@ -121,5 +121,9 @@ public class GameMap : MonoBehaviour
         seg4.placeData.Add(new PlaceData() { mapObjid = 6, mustBeDestroyed = false, spwanpos = new Vector3(2.73f, 0, 0), spwanRo = Quaternion.identity });
         seg4.placeData.Add(new PlaceData() { mapObjid = 6, mustBeDestroyed = false, spwanpos = new Vector3(2.73f, 0, 0), spwanRo = Quaternion.identity });
 
+
+        //var a= Newtonsoft.Json.JsonConvert.SerializeObject(mapData);
+        //Debug.Log(a);
+        //var b= Newtonsoft.Json.JsonConvert.DeserializeObject<MapData>(a);
     }
 }
