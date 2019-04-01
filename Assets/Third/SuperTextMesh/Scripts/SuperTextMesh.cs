@@ -14,7 +14,7 @@ using UnityEngine.SceneManagement; //for OnSceneLoaded
 #endif
 
 #if UNITY_EDITOR
-[CustomEditor(typeof(SuperTextMesh))]
+[CustomEditor(typeof(SuperTextMesh),true)]
 [CanEditMultipleObjects] //sure why not
 public class SuperTextMeshEditor : Editor{
 	override public void OnInspectorGUI(){

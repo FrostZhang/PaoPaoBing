@@ -1,4 +1,4 @@
-﻿Shader "Custom/BgShader"
+﻿Shader "Custom/MoveX"
 {
 	Properties
 	{
@@ -40,7 +40,7 @@
 				v2f o;
 				o.vertex = UnityObjectToClipPos(v.vertex);
 				o.uv = TRANSFORM_TEX(v.uv, _MainTex);
-				//o.uv.x += _Time.x;
+				o.uv.x += _Time.x;
 				return o;
 			}
 			
