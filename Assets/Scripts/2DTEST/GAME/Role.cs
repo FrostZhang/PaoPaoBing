@@ -53,7 +53,7 @@ public class Role : MonoBehaviour
 
     protected virtual void OnDestroy()
     {
-        if (hasHpText)
+        if (hasHpText && hpText)
         {
             HPTextController.Instance?.RecycleHpUi(hpText);
         }

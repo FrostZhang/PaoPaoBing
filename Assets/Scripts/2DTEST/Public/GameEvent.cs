@@ -10,9 +10,17 @@ public class GameEvent
         public static Action<int,int> OnChange_HP;
         public static Action<int,int> OnChange_MP;
         public static Action<int> OnChange_Level;
+        public static Action<int> OnChange_Exp;
         public static Action<int> OnChange_Att;
+        public static Action<int> OnChange_Coin;
+        public static Action<BagItem> OnAdd_BagItem;
+        public static Action<BagItem> OnDelete_BagItem;
     }
 
-
+    public class App
+    {
+        public static Action OnCaFadeOut;
+        public static Action OnCaFadeIn;
+    }
 
 }
