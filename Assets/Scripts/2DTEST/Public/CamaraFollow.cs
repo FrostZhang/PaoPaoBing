@@ -31,7 +31,10 @@ public class CamaraFollow : MonoBehaviour
 
     private void Update()
     {
-        TrackPlayer();
+        if (target)
+        {
+            TrackPlayer();
+        }
     }
 
     private void TrackPlayer()
