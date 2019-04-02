@@ -4,12 +4,31 @@
 		_MaskTex ("Mask Texture", 2D) = "white" {}
         _OutlineColor ("Outline Color", Color) = (0,0,0,1)
         _OutlineWidth ("Outline Width", Range(0,1)) = 0.05
+
+		_StencilComp("Stencil Comparison", Float) = 8
+		_StencilOp("Stencil Operation", Float) = 0
+		_StencilWriteMask("Stencil Write Mask", Float) = 255
+		_StencilReadMask("Stencil Read Mask", Float) = 255
+
+		_ColorMask("Color Mask", Float) = 15
 	}
     
 	SubShader {
     Tags { "Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent" }
-        Lighting Off Cull Off ZWrite Off Fog { Mode Off }
+
+        Lighting Off Cull Off ZWrite [unity_GUIZTestMode] Fog { Mode Off } 
+			ColorMask[_ColorMask]
 		Blend SrcAlpha OneMinusSrcAlpha
+
+//required for UI.Mask
+		Stencil {
+			Ref 0
+			Comp[_StencilComp]
+			Pass[_StencilOp]
+			ReadMask[_StencilReadMask]
+			WriteMask[_StencilWriteMask]
+		}
+
 //outline
         CGPROGRAM
         #pragma surface surf Lambert alpha vertex:vert
