@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MissionUI : MonoBehaviour {
 
+public class MissionUI : SurfaceChild
+{
     public Button close;
     public Transform pa;
     private Transform prefab;
 
     bool isStart;
-	void Start ()
+    void Start()
     {
         if (isStart)
         {
@@ -25,16 +26,22 @@ public class MissionUI : MonoBehaviour {
         isStart = true;
     }
 
-    private void OnEnable()
+    public override void Open()
     {
+        base.Open();
         if (!isStart)
         {
             Start();
         }
     }
 
-    private void OnDestroy()
+    public override void Close(bool destroy)
     {
-        close.onClick.RemoveAllListeners();
+        base.Close(destroy);
+        if (destroy)
+        {
+            close.onClick.RemoveAllListeners();
+        }
     }
+
 }

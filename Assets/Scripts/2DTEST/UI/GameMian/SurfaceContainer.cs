@@ -2,26 +2,60 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SurfaceContainer : MonoBehaviour {
+public class SurfaceContainer : MonoBehaviour
+{
+    [HideInInspector] public Transform tr;
+    [HideInInspector] public GameObject go;
 
-    public Transform tr;
-    public GameObject go;
-
-    public List<SuefaceChild> suefaces;
+    public List<SurfaceChild> suefaces;
 
     private void Awake()
     {
         tr = transform;
         go = gameObject;
+        suefaces = new List<SurfaceChild>();
     }
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public T Open<T>() where T : SurfaceChild
+    {
+        foreach (var item in suefaces)
+        {
+            if (item is T)
+            {
+                item.Open();
+                return (T)item;
+            }
+        }
+        T t = Resources.Load<T>("Surface/" + typeof(T).ToString());
+        if (t)
+        {
+            return Instantiate(t, tr);
+        }
+        else
+        {
+            Debugger.Resource.LogError("没有这个资源 " + typeof(T).ToString());
+            return null;
+        }
+    }
+
+    public void Close<T>(bool destory = false)
+    {
+        foreach (var item in suefaces)
+        {
+            if (item is T)
+            {
+                item.Close(destory);
+                return;
+            }
+        }
+    }
+
+    public void CloseAll(bool destory = false)
+    {
+        foreach (var item in suefaces)
+        {
+            item.Close(destory);
+            return;
+        }
+    }
 }

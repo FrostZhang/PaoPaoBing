@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RoleData
 {
-    public int gameid;          //全局唯一id
+    public int gameid;          //物体id
     public string name;         //名称
     public int hp;              //血
     public int def;             //物理防御
@@ -20,11 +20,20 @@ public class EnimyData : RoleData
 
 public class CustomData
 {
-    public string account;  //账号
-    public string passworld;  //密码
-    public RoleData basedata;
+    public string account;      //账号
+    public string passworld;    //密码
+    public int roles;           //角色总数量
 
+    //当前角色
+    public int roleid;          //角色序列号
+    public RoleData basedata;   //基本资料
     public List<BagItem> bagitems;  //背包物品
+
+    public CustomData()
+    {
+        //test
+        basedata = new RoleData() { hp = 100, atk = 2, def = 3, fightSpeed = 1 };
+    }
 }
 
 public class BagItem

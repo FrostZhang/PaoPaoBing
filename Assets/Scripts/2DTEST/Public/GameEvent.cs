@@ -21,6 +21,16 @@ public class GameEvent
     {
         public static Action OnCaFadeOut;
         public static Action OnCaFadeIn;
+        public static Action<float> OnSceneLoading;
+        public static Action OnSceneStartJump;
+        public static Action OnSceneEndJump;
     }
 
+    public class HPText
+    {
+        public static Func<Transform, string, HpUI> InstansHpUI;
+        public static Action<Vector3, string> ShowDYUI;
+        public static Action<HpUI> RecycleUI;
+
+    }
 }

@@ -24,6 +24,7 @@ public class Define
         public const string DESIGNMAP = "disgnMap";
         public const string MONITORMAP = "monitorMap";
 
+        public const string LOGIN = "login";
 
         //variable
         public const string TARGET = "target"; 

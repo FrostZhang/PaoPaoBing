@@ -9,7 +9,11 @@ public class HomeMap : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-	    	
+        var a= Resources.Load<Player2D>("Model/Player");
+        if (a)
+        {
+            Instantiate(a);
+        }
 	}
 	
 	// Update is called once per frame

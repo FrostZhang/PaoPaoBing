@@ -38,7 +38,7 @@ namespace FSM
             map.walls[1].SetPositonX(v.y);
             player.position = map.CurrentSegment.swpanPos;              //玩家
             cf.transform.SetPositonX(map.CurrentSegment.swpanPos.x);    //相机
-            cf.LimitCaView(v);
+            cf.LimitCaViewH(v);
         }
 
         public override void Update()

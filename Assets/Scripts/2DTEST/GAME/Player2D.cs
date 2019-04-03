@@ -17,7 +17,7 @@ public class Player2D : CharacterController2D, IAnimaEvent, IHurt
         body = tr.GetChild(0);
         anim = body.GetComponent<Animator>();
         canmove = true;
-        data = new RoleData() { hp = 100, atk = 2, def = 3, fightSpeed = 1 };
+        data = GameApp.playerData.basedata; 
 
         //test
         hpdynamic = data.hp;

@@ -19,6 +19,7 @@ public class GameMap : MonoBehaviour
 
     private Transform mapItemPa;
 
+    private Transform player;
     void Start()
     {
         tr = gameObject.transform;
@@ -26,13 +27,19 @@ public class GameMap : MonoBehaviour
 
         LondMapData();
 
+        var a = Resources.Load<Player2D>("Model/Player");
+        if (a)
+        {
+            player = Instantiate(a).tr;
+        }
+
         CurrentSegment = mapData.GetSegment(0);
         GameApp.pool.SetPrefab(doorPrefab, Define.FSMAI.MAP);
         GameApp.pool.SetPrefab(enimyPrefab, Define.FSMAI.MAPITEM);
 
         fsm = new FSMController(gameObject, tr);
         fsm.variable.Add(Define.FSMAI.CAMERA, GameApp.cameraCt);
-        fsm.variable.Add(Define.FSMAI.TARGET, GameApp.Instance.player2D.tr);
+        fsm.variable.Add(Define.FSMAI.TARGET, player);
         fsm.variable.Add(Define.FSMAI.MAP, this);
         fsm.variable.Add(Define.FSMAI.MAPITEMPA, mapItemPa);
         DesignMap designMap = new DesignMap();
@@ -40,6 +47,8 @@ public class GameMap : MonoBehaviour
         MonitorMap monitorMap = new MonitorMap();
         fsm.AddState(monitorMap);
         fsm.Initialization();
+
+
     }
 
     private void Update()

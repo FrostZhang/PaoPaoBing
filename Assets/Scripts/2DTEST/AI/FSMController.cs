@@ -131,6 +131,7 @@ namespace FSM
             MonitorState = state;
             state.Start();
         }
+
         /// <summary>
         /// 启用监视程序
         /// </summary>

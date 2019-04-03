@@ -12,15 +12,15 @@ public class CamaraFollow : MonoBehaviour
     float adapt;  //适配值
     private void Awake()
     {
-        // Setting up the reference.
-        if (!target)
-        {
-            target = GameObject.FindGameObjectWithTag("Player").transform;
-        }
         ca = GetComponent<Camera>();
         adapt = ca.orthographicSize * 2 - ca.orthographicSize * ca.aspect;
         clampX.x -= adapt;
         clampX.y += adapt;
+    }
+
+    public void SetTarget(Transform target)
+    {
+        this.target = target;
     }
 
     private bool CheckXMargin()
@@ -50,12 +50,13 @@ public class CamaraFollow : MonoBehaviour
     }
 
     //---------------------------- 
-    public void LimitCaView(float x1, float x2)
+    public void LimitCaViewH(float x1, float x2)
     {
         clampX.x = x1 + ca.orthographicSize * 2 - adapt;
         clampX.y = x2 - ca.orthographicSize * 2 + adapt;
     }
-    public void LimitCaView(Vector2 v)
+
+    public void LimitCaViewH(Vector2 v)
     {
         clampX.x = v.x + ca.orthographicSize * 2 - adapt;
         clampX.y = v.y - ca.orthographicSize * 2 + adapt;

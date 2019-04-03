@@ -19,7 +19,7 @@ public class Role : MonoBehaviour
             {
                 hptextPos = transform;
             }
-            hpText = HPTextController.Instance.InstansHpText(hptextPos, data.name);
+            hpText = GameEvent.HPText.InstansHpUI(hptextPos, data.name); 
             hpText.UpHp(data.hp, data.hp, 0);
         }
     }
@@ -38,11 +38,11 @@ public class Role : MonoBehaviour
     {
         if (isminus)
         {
-            HPTextController.Instance.ShowDyhp(hptextPos.position, string.Concat("- ", hurt.ToString()));
+            GameEvent.HPText.ShowDYUI(hptextPos.position, string.Concat("- ", hurt.ToString()));
         }
         else
         {
-            HPTextController.Instance.ShowDyhp(hptextPos.position, string.Concat("+ ", hurt.ToString()));
+            GameEvent.HPText.ShowDYUI(hptextPos.position, string.Concat("+ ", hurt.ToString()));
         }
         if (hpText)
         {
@@ -55,7 +55,7 @@ public class Role : MonoBehaviour
     {
         if (hasHpText && hpText)
         {
-            HPTextController.Instance?.RecycleHpUi(hpText);
+            GameEvent.HPText.RecycleUI(hpText);
         }
     }
 }

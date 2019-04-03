@@ -5,26 +5,28 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public class HPTextController : Singleton<HPTextController>
+public class HPTextController : SurfaceChild
 {
-    Transform tr;
     const string HPText = "HPText";
     const string DyHpText = "DyHpText";
 
-    public List<HpUI> hpUIs;
-    private void Awake()
+    protected override void Awake()
     {
-        tr = transform;
+        base.Awake();
+        GameEvent.HPText.InstansHpUI += InstansHpText;
+        GameEvent.HPText.RecycleUI += RecycleHpUi;
+        GameEvent.HPText.ShowDYUI += ShowDyhp;
     }
 
-    public HpUI InstansHpText(Transform pos, string name, bool show = false)
+    public List<HpUI> hpUIs;
+    public HpUI InstansHpText(Transform pos, string name)
     {
         GameObject ob = GameApp.pool.GetProp(HPText, pos.position, Quaternion.identity, tr);
         var hpui = ob.GetComponent<HpUI>();
         hpui.nametext.text = name == null ? string.Empty : name;
         hpui.target = pos;
         hpui.Uppos();
-        hpui.IsShow = show;
+        hpui.IsShow = false;
         hpUIs.Add(hpui);
         return hpui;
     }
