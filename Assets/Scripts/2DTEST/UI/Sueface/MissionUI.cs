@@ -24,6 +24,7 @@ public class MissionUI : SurfaceChild
         prefab = pa.GetChild(0);
         prefab.gameObject.SetActive(false);
         isStart = true;
+
     }
 
     public override void Open()

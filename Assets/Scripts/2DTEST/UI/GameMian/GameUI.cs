@@ -29,14 +29,15 @@ public class GameUI : MonoBehaviour
 
     private void OnSceneEJump()
     {
-        Resources.UnloadUnusedAssets();
+        game.OpenAll();
     }
 
     private void OnSceneSJump()
     {
         app.CloseAll(true);
-        game.CloseAll(false);
+        game.CloseAll(true);
         hub.CloseAll(false);
+        Resources.UnloadUnusedAssets();
     }
 
 }

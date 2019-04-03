@@ -9,6 +9,7 @@ using UnityEditor;
 [DisallowMultipleComponent()]
 public abstract class SurfaceChild : MonoBehaviour
 {
+    public bool ResidMemory; //常驻内存
     protected Transform tr;
     protected GameObject go;
 
@@ -39,7 +40,7 @@ public abstract class SurfaceChild : MonoBehaviour
         {
             string str = AssetDatabase.GetAssetPath(gameObject);
             var p = Path.GetFileNameWithoutExtension(str);
-            if (p == this.GetType().ToString())
+            if (string.IsNullOrEmpty(p) || p == this.GetType().ToString())
             {
                 return;
             }

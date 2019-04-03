@@ -37,10 +37,6 @@ public class GameApp : Singleton<GameApp>
         DontDestroyOnLoad(this);
 
         RegisterApplicationEvent();
-        //Debugger.App.Log(GetSys());
-        //Debugger.Network.Log("GameApp 初始化完成");
-        //Debugger.Resource.Log("GameApp 初始化完成");
-        //Debugger.UI.Log("GameApp 初始化完成");
     }
 
     private void RegisterApplicationEvent()

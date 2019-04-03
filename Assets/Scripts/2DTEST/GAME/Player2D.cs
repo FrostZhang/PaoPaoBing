@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Player2D : CharacterController2D, IAnimaEvent, IHurt
 {
@@ -17,13 +18,12 @@ public class Player2D : CharacterController2D, IAnimaEvent, IHurt
         body = tr.GetChild(0);
         anim = body.GetComponent<Animator>();
         canmove = true;
-        data = GameApp.playerData.basedata; 
+        data = GameApp.playerData.basedata;
 
         //test
         hpdynamic = data.hp;
     }
 
-    RaycastHit raycastHit;
     void Update()
     {
         Vector3 dir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical") * 0.5f);
@@ -45,13 +45,16 @@ public class Player2D : CharacterController2D, IAnimaEvent, IHurt
         {
             dir.y = -1;
         }
-        if (Input.GetAxis("Fire1") > 0)
+        if (!EventSystem.current.IsPointerOverGameObject())
         {
-            anim.SetBool("fight", true);
-        }
-        if (Input.GetAxis("Fire2") > 0)
-        {
-            anim.SetTrigger("hit");
+            if (Input.GetAxis("Fire1") > 0)
+            {
+                anim.SetBool("fight", true);
+            }
+            if (Input.GetAxis("Fire2") > 0)
+            {
+                anim.SetTrigger("hit");
+            }
         }
         body.localPosition = new Vector3(0, tr.position.y + tr.position.z * 0.5f, 0);
     }
@@ -87,7 +90,7 @@ public class Player2D : CharacterController2D, IAnimaEvent, IHurt
             anim.SetTrigger(Define.Anim.HIT);
             ShowHpChange(targetdata.atk);
         }
-        GameEvent.PlayerData.OnChange_HP?.Invoke(hpdynamic,data.hp);
+        GameEvent.PlayerData.OnChange_HP?.Invoke(hpdynamic, data.hp);
     }
 
 }

@@ -15,6 +15,8 @@
 
 		Pass
 		{
+			ZTest Always Cull Off ZWrite Off
+
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag
@@ -98,11 +100,11 @@
 
 			fixed4 frag (v2f i) : SV_Target
 			{
-				half edge = Sobel(i);
-				fixed4 withEdgeColor = lerp(_EdgeColor, tex2D(_MainTex, i.uv[4]), edge);
-				fixed4 onlyEdgeColor = lerp(_EdgeColor, _BackgroundColor, edge);
-				fixed4 col = lerp(withEdgeColor, onlyEdgeColor, _EdgeOnly);
-				//col = tex2D(_MainTex, i.uv);
+				//half edge = Sobel(i);
+				//fixed4 withEdgeColor = lerp(_EdgeColor, tex2D(_MainTex, i.uv[4]), edge);
+				//fixed4 onlyEdgeColor = lerp(_EdgeColor, _BackgroundColor, edge);
+				//fixed4 col = lerp(withEdgeColor, onlyEdgeColor, _EdgeOnly);
+				fixed4 col = tex2D(_MainTex, i.uv[4]);
 				col.rbg *= _Brightness;
 				// apply fog
 				UNITY_APPLY_FOG(i.fogCoord, col);

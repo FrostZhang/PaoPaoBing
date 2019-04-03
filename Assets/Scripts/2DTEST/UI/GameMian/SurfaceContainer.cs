@@ -29,7 +29,9 @@ public class SurfaceContainer : MonoBehaviour
         T t = Resources.Load<T>("Surface/" + typeof(T).ToString());
         if (t)
         {
-            return Instantiate(t, tr);
+            var v = Instantiate(t, tr);
+            suefaces.Add(v);
+            return v;
         }
         else
         {
@@ -44,6 +46,10 @@ public class SurfaceContainer : MonoBehaviour
         {
             if (item is T)
             {
+                if (destory)
+                {
+                    suefaces.Remove(item);
+                }
                 item.Close(destory);
                 return;
             }
@@ -52,10 +58,35 @@ public class SurfaceContainer : MonoBehaviour
 
     public void CloseAll(bool destory = false)
     {
+        if (destory)
+        {
+            for (int i = 0; i < suefaces.Count; i++)
+            {
+                if (!suefaces[i].ResidMemory)
+                {
+                    suefaces[i].Close(destory);
+                    suefaces.Remove(suefaces[i]);
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < suefaces.Count; i++)
+            {
+                if (!suefaces[i].ResidMemory)
+                {
+                    suefaces[i].Close(destory);
+                }
+            }
+        }
+
+    }
+
+    public void OpenAll()
+    {
         foreach (var item in suefaces)
         {
-            item.Close(destory);
-            return;
+            item.Open();
         }
     }
 }
