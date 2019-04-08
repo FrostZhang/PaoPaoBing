@@ -42,7 +42,7 @@ namespace SysFlow
 
         public override void Start()
         {
-            GameApp.sceneMG.LoadSceneAsync("GCity");
+            GameApp.sceneMG.LoadSceneAsync("talk1");
         }
 
         public override void Update()

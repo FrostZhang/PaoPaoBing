@@ -24,6 +24,9 @@ public class GameEvent
         public static Action<float> OnSceneLoading;
         public static Action OnSceneStartJump;
         public static Action OnSceneEndJump;
+
+        public static Action<int> OnShowPlot;
+        public static Action OnPlotEnd;
     }
 
     public class HPText

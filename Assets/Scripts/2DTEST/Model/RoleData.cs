@@ -57,3 +57,14 @@ public class MissionData
 
 
 }
+
+
+public class PlotData
+{
+    public int plotID;  //对话ID
+    public string chatstr;  //内容
+    public int btns;    //拥有选项
+
+    public int okOrSkip;
+    public int refuse;
+}

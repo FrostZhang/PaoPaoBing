@@ -65,7 +65,6 @@ public class Player2D : CharacterController2D, IAnimaEvent, IHurt
         {
             case Define.Anim.FIGHT:
                 var hits = Physics.SphereCastAll(transform.position, 1, body.rotation * Vector2.right, 0.5f, 1 << LayerMask.NameToLayer("Enimy"));
-                //Debug.Log(body.rotation * Vector2.right);
                 for (int i = 0; i < hits.Length; i++)
                 {
                     if (hits[i].transform != tr)
