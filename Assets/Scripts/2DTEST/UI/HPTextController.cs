@@ -90,4 +90,13 @@ public class HPTextController : SurfaceChild
             return false;
         }
     }
+
+    public void Clear()
+    {
+        DOTween.CompleteAll();
+        for (int i = 0; i < hpUIs.Count; i++)
+        {
+            RecycleHpUi(hpUIs[i]);
+        }
+    }
 }

@@ -16,28 +16,40 @@ public class GameScene
     public void LoadSceneAsync(string scene)
     {
         GameEvent.App.OnSceneStartJump?.Invoke();
-        SceneManager.LoadScene("Loading");
         GameApp.Instance.StartCoroutine(_loadScene(scene));
-        GameEvent.App.OnSceneEndJump?.Invoke();
     }
 
     IEnumerator _loadScene(string scene)
     {
+        var l = SceneManager.LoadSceneAsync("Loading");
+        while (!l.isDone)
+        {
+            yield return null;
+        }
+        Debugger.Game.Log("Beging Loading  " + scene);
+        var load= GameApp.ui.app.Open<SurfaceLoading>();
+        while (!load)
+        {
+            yield return null;
+        }
         AsyncOperation op = SceneManager.LoadSceneAsync(scene);
         op.allowSceneActivation = false;
         while (op.progress < 0.9f)
         {
-            GameEvent.App.OnSceneLoading?.Invoke(op.progress);
+            load.OnSceneLoading(op.progress);
+            //GameEvent.App.OnSceneLoading?.Invoke(op.progress);
             yield return null;
         }
         float p = 0;
         while (p < 0.1f)
         {
             p += 0.01f;
-            GameEvent.App.OnSceneLoading?.Invoke(op.progress + p);
+            load.OnSceneLoading(op.progress + p);
+            //GameEvent.App.OnSceneLoading?.Invoke(op.progress + p);
             yield return null;
         }
-        yield return new WaitForSeconds(5);
+        GameApp.ui.app.Close<SurfaceLoading>(true);
         op.allowSceneActivation = true;
+        GameEvent.App.OnSceneEndJump?.Invoke();
     }
 }

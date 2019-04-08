@@ -42,6 +42,18 @@ public class BagItem
     public int restrictionlevel;  //限制使用等级
     public int superNumber;   //堆叠数量
 
-    public string bagitemID;    //物品ID （对应图标路径）
+    public string itemID;    //物品ID （对应图标路径）
+
+}
+
+public class MissionData
+{
+    public int missionID;   //任务编号
+    public int level;   //接受等级
+
+    public int missionType; //任务类型 0对话 1击杀
+    public string missonTip; //任务简述
+    public int mapid;        //地图位置
+
 
 }

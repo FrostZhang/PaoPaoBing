@@ -14,18 +14,9 @@ public class SurfaceLoading : SurfaceChild {
         a.x = 0;
         fill.sizeDelta = a;
 
-        GameEvent.App.OnSceneLoading += OnSceneLoading;
-        GameEvent.App.OnSceneEndJump += OnSceneEndJump;
     }
 
-    private void OnSceneEndJump()
-    {
-        GameEvent.App.OnSceneLoading -= OnSceneLoading;
-        GameEvent.App.OnSceneEndJump -= OnSceneEndJump;
-        Close(true);
-    }
-
-    private void OnSceneLoading(float f)
+    public void OnSceneLoading(float f)
     {
         var a = fill.sizeDelta;
         a.x = bg.sizeDelta.x * f;

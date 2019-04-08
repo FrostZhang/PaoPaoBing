@@ -7,6 +7,7 @@ public class HomeMap : MonoBehaviour
 {
     public SuperTextMesh wacth;
     public PointerHandel mission;
+    public PointerHandel map;
 
     // Use this for initialization
     void Start()
@@ -14,21 +15,37 @@ public class HomeMap : MonoBehaviour
         var a = Resources.Load<Player2D>("Model/Player");
         if (a)
         {
-            var _= Instantiate(a);
+            var _ = Instantiate(a);
             GameApp.cameraCt.target = _.tr;
         }
-        GameApp.cameraCt.LimitCaViewH(-4.99f,27.12f);
-        LondBaseUI();
+        GameApp.cameraCt.LimitCaViewH(-4.99f, 27.12f);
 
-        mission.action= ()=>{
+        mission.action = () =>
+        {
             OnClickMission();
         };
+        map.action = () =>
+        {
+            GameApp.ui.game.Open<SurfaceMap>();
+        };
+
+        LondBaseUI();
     }
 
     private void LondBaseUI()
     {
         GameApp.ui.game.Open<SurfaceHead>();
         GameApp.ui.game.Open<SurfaceMenu>();
+        SuperTextMesh.RebuildAll();
+        HPTextController hc;
+        if (GameApp.ui.hub.TryGet(out hc))
+        {
+            hc.Clear();
+        }
+        else
+        {
+            GameApp.ui.hub.Open<HPTextController>();
+        }
     }
 
     public void OnClickMission()

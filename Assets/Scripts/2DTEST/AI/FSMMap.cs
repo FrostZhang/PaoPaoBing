@@ -102,7 +102,7 @@ namespace FSM
             for (int i = 0; i < mapPa.childCount; i++)
             {
                 var g = mapPa.GetChild(i).gameObject;
-                var item= g.GetComponent<IMapitem>();
+                var item = g.GetComponent<IMapitem>();
                 item.mapdata.spwanpos = mapPa.GetChild(i).position;
                 item.mapdata.spwanRo = mapPa.GetChild(i).rotation;
                 GameApp.pool.Recycle(g, Define.FSMAI.MAPITEM);
@@ -121,9 +121,11 @@ namespace FSM
                 {
                     break;
                 }
-                doors[i] = GameApp.pool.GetProp<MapDoor>(Define.FSMAI.MAP,
+                int n = i;
+                doors[n] = GameApp.pool.GetProp<MapDoor>(Define.FSMAI.MAP,
                     map.childs[i].swpanPos, Quaternion.identity, transform);
-                doors[i].SetDoorData(map.childs[i]);
+                doors[n].SetDoorData(map.childs[n]);
+                doors[n].OnPlayerPass = (_) => a.SkipMap(map.childs[n].mapid);
             }
             OnMapItemchange();
         }

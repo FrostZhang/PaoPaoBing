@@ -34,11 +34,6 @@ public class Enimy2D : CharacterController2D, IHurt, IMapitem, IAnimaEvent
         anim.runtimeAnimatorController = runanim;
     }
 
-    protected void Start()
-    {
-
-    }
-
     public void IniData(RoleData data, RuntimeAnimatorController rac)
     {
         this.data = data;

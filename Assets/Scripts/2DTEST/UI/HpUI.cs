@@ -48,6 +48,6 @@ public class HpUI : MonoBehaviour
 
     public void Uppos()
     {
-        tr.position = target.position;
+        transform.position = target.position;
     }
 }

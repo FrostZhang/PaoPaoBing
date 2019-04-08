@@ -15,7 +15,7 @@ public class GameUI : MonoBehaviour
     public SurfaceContainer game;
     public SurfaceContainer app;
 
-    public void Start()
+    private void Awake()
     {
         GameEvent.App.OnSceneStartJump += OnSceneSJump;
         GameEvent.App.OnSceneEndJump += OnSceneEJump;
@@ -30,6 +30,8 @@ public class GameUI : MonoBehaviour
     private void OnSceneEJump()
     {
         game.OpenAll();
+        //解决跳转场景带来的supermesh不显示bug
+        GameApp.gameTimer.Delay(() => { SuperTextMesh.RebuildAll(); }, 0.1f, true);
     }
 
     private void OnSceneSJump()

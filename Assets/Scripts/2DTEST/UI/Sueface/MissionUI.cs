@@ -11,38 +11,42 @@ public class MissionUI : SurfaceChild
     private Transform prefab;
 
     bool isStart;
-    void Start()
+
+    protected override void Awake()
     {
-        if (isStart)
-        {
-            return;
-        }
-        close.onClick.AddListener(() =>
-        {
-            gameObject.SetActive(false);
-        });
+        base.Awake();
         prefab = pa.GetChild(0);
         prefab.gameObject.SetActive(false);
-        isStart = true;
+    }
 
+    void Start()
+    {
+        close.onClick.AddListener(() =>
+        {
+            Close();
+        });
+
+        Transform t= Instantiate(prefab, pa);
+        t.GetComponentInChildren<Button>().onClick.AddListener(() =>
+        {
+            t.GetComponentInChildren<Button>().onClick.RemoveAllListeners();
+
+        });
     }
 
     public override void Open()
     {
         base.Open();
-        if (!isStart)
-        {
-            Start();
-        }
     }
 
-    public override void Close(bool destroy)
+    private void ReadMissions()
     {
-        base.Close(destroy);
-        if (destroy)
-        {
-            close.onClick.RemoveAllListeners();
-        }
+
+    }
+
+    private void OnDestroy()
+    {
+        close.onClick.RemoveAllListeners();
     }
 
 }

@@ -9,9 +9,9 @@ using UnityEditor;
 [DisallowMultipleComponent()]
 public abstract class SurfaceChild : MonoBehaviour
 {
-    public bool ResidMemory; //常驻内存
-    protected Transform tr;
-    protected GameObject go;
+    public bool dontDestroyOnLoad; //常驻内存
+    public Transform tr { get; private set; }
+    public GameObject go { get; private set; }
 
     protected virtual void Awake()
     {
@@ -23,15 +23,12 @@ public abstract class SurfaceChild : MonoBehaviour
     {
         go.SetActive(true);
     }
-    public virtual void Close(bool destroy)
+
+    public virtual void Close()
     {
-        if (destroy)
-        {
-            Destroy(go);
-        }
-        else
-            go.SetActive(false);
+        go.SetActive(false);
     }
+
 
 #if UNITY_EDITOR
     private void OnValidate()

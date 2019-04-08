@@ -63,7 +63,7 @@ public class MapDoor : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            GameApp.Instance.mapController.SkipMap(data.mapid);
+            //GameApp.Instance.mapController.SkipMap(data.mapid);
             OnPlayerPass?.Invoke(true);
         }
     }

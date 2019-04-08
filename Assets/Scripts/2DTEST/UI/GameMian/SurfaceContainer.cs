@@ -16,6 +16,32 @@ public class SurfaceContainer : MonoBehaviour
         suefaces = new List<SurfaceChild>();
     }
 
+    public bool Contains<T>() where T : SurfaceChild
+    {
+        foreach (var item in suefaces)
+        {
+            if (item is T)
+            {
+                return true;
+            }
+        }
+        return false;   
+    }
+
+    public bool TryGet<T>(out T value) where T : SurfaceChild
+    {
+        foreach (var item in suefaces)
+        {
+            if (item is T)
+            {
+                value = (T)item;
+                return true;
+            }
+        }
+        value = default(T);
+        return false;
+    }
+
     public T Open<T>() where T : SurfaceChild
     {
         foreach (var item in suefaces)
@@ -42,15 +68,17 @@ public class SurfaceContainer : MonoBehaviour
 
     public void Close<T>(bool destory = false)
     {
-        foreach (var item in suefaces)
+        for (int i = 0; i < suefaces.Count; i++)
         {
-            if (item is T)
+            if (suefaces[i] is T)
             {
                 if (destory)
                 {
-                    suefaces.Remove(item);
+                    Destroy(suefaces[i].go);
+                    suefaces.Remove(suefaces[i]);
                 }
-                item.Close(destory);
+                else
+                    suefaces[i].Close();
                 return;
             }
         }
@@ -62,10 +90,14 @@ public class SurfaceContainer : MonoBehaviour
         {
             for (int i = 0; i < suefaces.Count; i++)
             {
-                if (!suefaces[i].ResidMemory)
+                if (!suefaces[i].dontDestroyOnLoad)
                 {
-                    suefaces[i].Close(destory);
+                    Destroy(suefaces[i].go);
                     suefaces.Remove(suefaces[i]);
+                }
+                else
+                {
+                    suefaces[i].Close();
                 }
             }
         }
@@ -73,10 +105,7 @@ public class SurfaceContainer : MonoBehaviour
         {
             for (int i = 0; i < suefaces.Count; i++)
             {
-                if (!suefaces[i].ResidMemory)
-                {
-                    suefaces[i].Close(destory);
-                }
+                suefaces[i].Close();
             }
         }
 

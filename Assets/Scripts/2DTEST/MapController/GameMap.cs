@@ -31,6 +31,7 @@ public class GameMap : MonoBehaviour
         if (a)
         {
             player = Instantiate(a).tr;
+            GameApp.cameraCt.target = player;
         }
 
         CurrentSegment = mapData.GetSegment(0);
@@ -48,7 +49,20 @@ public class GameMap : MonoBehaviour
         fsm.AddState(monitorMap);
         fsm.Initialization();
 
+        HPTextController h;
+        if (GameApp.ui.hub.TryGet<HPTextController>(out h))
+        {
+            h.Open();
+        }
+    }
 
+    private void OnDestroy()
+    {
+        //HPTextController h;
+        //if (GameApp.ui.hub.TryGet<HPTextController>(out h))
+        //{
+        //    h.Close();
+        //}
     }
 
     private void Update()
@@ -89,6 +103,7 @@ public class GameMap : MonoBehaviour
     public void LondMapData()
     {
         mapData = new MapData();
+        mapData.mapid = 1;
         var seg = mapData.CreatSegment();
         seg.swpanPos = new Vector3(-5.78f, 0, 0);
         seg.wall = new Vector2(-8.4f, 10);
