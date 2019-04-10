@@ -17,11 +17,12 @@ public class GameApp : Singleton<GameApp>
     public static CustomData playerData;//玩家资料
 
     //test
-    public GameMap mapController;
     public GameObject[] prefab;
+    public string firstScene;
 
     void Awake()
     {
+        DontDestroyOnLoad(this);
         pool = new GameObjectPool(prefab);
         cameraCt = GetComponentInChildren<CamaraFollow>();
         gameTimer = new GameTimer();
@@ -32,9 +33,6 @@ public class GameApp : Singleton<GameApp>
         //开始游戏进程
         var fsm = new FSMApp(transform);
         sysFlow = fsm.Sysflow;
-
-        mapController = FindObjectOfType<GameMap>();
-        DontDestroyOnLoad(this);
 
         RegisterApplicationEvent();
     }

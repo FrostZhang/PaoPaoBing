@@ -23,7 +23,7 @@ public class GameEvent
         public static Action OnCaFadeIn;
         public static Action<float> OnSceneLoading;
         public static Action OnSceneStartJump;
-        public static Action OnSceneEndJump;
+        public static Action<string> OnSceneEndJump;
 
         public static Action<int> OnShowPlot;
         public static Action OnPlotEnd;

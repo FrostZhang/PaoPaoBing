@@ -10,24 +10,24 @@ public class GameScene
     {
         GameEvent.App.OnSceneStartJump?.Invoke();
         SceneManager.LoadScene(scene);
-        GameEvent.App.OnSceneEndJump?.Invoke();
+        GameEvent.App.OnSceneEndJump?.Invoke(scene);
     }
 
     public void LoadSceneAsync(string scene)
     {
-        GameEvent.App.OnSceneStartJump?.Invoke();
         GameApp.Instance.StartCoroutine(_loadScene(scene));
     }
 
     IEnumerator _loadScene(string scene)
     {
         var l = SceneManager.LoadSceneAsync("Loading");
+        GameEvent.App.OnSceneStartJump?.Invoke();
         while (!l.isDone)
         {
             yield return null;
         }
         Debugger.Game.Log("Beging Loading  " + scene);
-        var load= GameApp.ui.app.Open<SurfaceLoading>();
+        var load = GameApp.ui.app.Open<SurfaceLoading>();
         while (!load)
         {
             yield return null;
@@ -37,7 +37,6 @@ public class GameScene
         while (op.progress < 0.9f)
         {
             load.OnSceneLoading(op.progress);
-            //GameEvent.App.OnSceneLoading?.Invoke(op.progress);
             yield return null;
         }
         float p = 0;
@@ -45,11 +44,13 @@ public class GameScene
         {
             p += 0.01f;
             load.OnSceneLoading(op.progress + p);
-            //GameEvent.App.OnSceneLoading?.Invoke(op.progress + p);
             yield return null;
         }
         GameApp.ui.app.Close<SurfaceLoading>(true);
+
         op.allowSceneActivation = true;
-        GameEvent.App.OnSceneEndJump?.Invoke();
+        yield return null;                          //跳转场景后发出事件，放在一帧后，防止事件接收不到
+        GameEvent.App.OnSceneEndJump?.Invoke(scene);
+        GameApp.cameraCt.effect.FadeIn_Black(3);
     }
 }

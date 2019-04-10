@@ -31,6 +31,7 @@ public class CaEffect : MonoBehaviour
 
     IEnumerator _FadeOut_Black(float t)
     {
+        _ma.SetFloat(Brightness, 1);
         while (_ma.GetFloat(Brightness) > 0.05f)
         {
             _ma.SetFloat(Brightness, _ma.GetFloat(Brightness) - 0.02f);
@@ -38,10 +39,12 @@ public class CaEffect : MonoBehaviour
         }
         _ma.SetFloat(Brightness, 0);
         GameEvent.App.OnCaFadeOut?.Invoke();
+
     }
 
     IEnumerator _FadeIn_Black(float t)
     {
+        _ma.SetFloat(Brightness, 0.5f);
         while (_ma.GetFloat(Brightness) < 0.95f)
         {
             _ma.SetFloat(Brightness, _ma.GetFloat(Brightness) + 0.02f);

@@ -27,7 +27,7 @@ public class GameUI : MonoBehaviour
         GameEvent.App.OnSceneEndJump -= OnSceneEJump;
     }
 
-    private void OnSceneEJump()
+    private void OnSceneEJump(string sc)
     {
         game.OpenAll();
         //解决跳转场景带来的supermesh不显示bug
@@ -40,6 +40,7 @@ public class GameUI : MonoBehaviour
         game.CloseAll(true);
         hub.CloseAll(false);
         Resources.UnloadUnusedAssets();
+        GC.Collect();
     }
 
 }

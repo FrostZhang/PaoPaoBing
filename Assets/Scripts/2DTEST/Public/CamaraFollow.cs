@@ -9,10 +9,13 @@ public class CamaraFollow : MonoBehaviour
     public Vector2 clampX; // The minimum x and y coordinates the camera can have.
     public Camera ca;
 
+    public CaEffect effect;
+
     float adapt;  //适配值
     private void Awake()
     {
         ca = GetComponent<Camera>();
+        effect = GetComponent<CaEffect>();
         adapt = ca.orthographicSize * 2 - ca.orthographicSize * ca.aspect;
         clampX.x -= adapt;
         clampX.y += adapt;

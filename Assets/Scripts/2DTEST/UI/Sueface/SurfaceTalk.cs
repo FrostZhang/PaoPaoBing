@@ -23,17 +23,22 @@ public class SurfaceTalk : SurfaceChild
         refuseG = refuse.gameObject;
     }
 
-    public void SetPlot(List<PlotData> datas)
+    public void SetPlots(List<PlotData> datas,int startplotID)
     {
         plotDatas = datas;
-        Show(datas[0].plotID);
+        Show(startplotID);
+    }
+
+    public void SetPlotAt(int plotID)
+    {
+        Show(plotID);
     }
 
     private void Show(int plotID)
     {
         Reset();
         var plo = plotDatas.Find((_) => _.plotID == plotID);
-        if (plo==null)
+        if (plo == null)
         {
             Debugger.Game.LogError("剧情未找到 ID " + plotID);
             return;
@@ -41,36 +46,40 @@ public class SurfaceTalk : SurfaceChild
         chat.text = plo.chatstr;
         chat.onCompleteEvent.AddListener(() =>
         {
-            if (plo.okOrSkip == 0)
-            {
-                GameEvent.App.OnPlotEnd?.Invoke();
-                //退出
-            }
-            else
-                skip.onClick.AddListener(() => ShowNext(plo.okOrSkip));
-            if (plo.refuse == 0)
-            {
-                GameEvent.App.OnPlotEnd?.Invoke();
-                //退出
-            }
-            else
-                refuse.onClick.AddListener(() => ShowNext(plo.refuse));
-
+            Debugger.Game.Log("播放完毕");
             int i = plo.btns;
             if ((i & 2) == 2)
             {
                 skipG.SetActive(true);
+                if (plo.okOrSkip == 0)
+                {
+                    skip.onClick.AddListener(() => { GameEvent.App.OnPlotEnd?.Invoke();Close(); });
+                }
+                else
+                    skip.onClick.AddListener(() => ShowNext(plo.okOrSkip));
             }
             if ((i & 4) == 4)
             {
                 okG.SetActive(true);
+                if (plo.okOrSkip == 0)
+                {
+                    ok.onClick.AddListener(() => { GameEvent.App.OnPlotEnd?.Invoke(); Close(); });
+                }
+                else
+                    ok.onClick.AddListener(() => ShowNext(plo.okOrSkip));
             }
             if ((i & 8) == 8)
             {
                 refuseG.SetActive(true);
+
+                if (plo.refuse == 0)
+                {
+                    refuse.onClick.AddListener(() => { GameEvent.App.OnPlotEnd?.Invoke(); Close(); });
+                }
+                else
+                    refuse.onClick.AddListener(() => ShowNext(plo.refuse));
             }
         });
-
     }
 
     private void ShowNext(int plotID)
@@ -81,10 +90,11 @@ public class SurfaceTalk : SurfaceChild
 
     public void Reset()
     {
-        chat.text = string.Empty;
         skip.onClick.RemoveAllListeners();
         ok.onClick.RemoveAllListeners();
         refuse.onClick.RemoveAllListeners();
+        chat.onCompleteEvent.RemoveAllListeners();
+        chat.text = string.Empty;
         skipG.SetActive(false);
         okG.SetActive(false);
         refuseG.SetActive(false);

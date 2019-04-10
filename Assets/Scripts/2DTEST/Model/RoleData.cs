@@ -29,6 +29,47 @@ public class CustomData
     public RoleData basedata;   //基本资料
     public List<BagItem> bagitems;  //背包物品
 
+    private List<PlotData> plotDatas1;   //人物对话的资料
+    public List<PlotData> PlotDatas1
+    {
+        get
+        {
+            if (plotDatas1 == null)
+            {
+                CSVLoader plot1 = new CSVLoader();
+                try
+                {
+                    plot1.ReadUTF8File(Application.streamingAssetsPath + "/Plot.csv");
+                    int r = plot1.GetRows();
+                    int c = plot1.GetCols();
+                    plotDatas1 = new List<PlotData>();
+                    for (int i = 1; i < r; i++)
+                    {
+                        var a = new PlotData();
+                        a.plotID = int.Parse(plot1.GetValueAt(i, 0));
+                        a.btns = int.Parse(plot1.GetValueAt(i, 1));
+                        a.okOrSkip = int.Parse(plot1.GetValueAt(i, 2));
+                        int refuse;
+                        int.TryParse(plot1.GetValueAt(i, 3), out refuse);
+                        a.refuse = refuse;
+                        a.chatstr = string.Format(plot1.GetValueAt(i, 4), "An");
+                        plotDatas1.Add(a);
+                    }
+                }
+                catch (System.Exception e)
+                {
+                    Debugger.App.LogError(e);
+                    return null;
+                }
+                return plotDatas1;
+            }
+            else
+            {
+                return plotDatas1;
+            }
+        }
+    } 
+
     public CustomData()
     {
         //test
